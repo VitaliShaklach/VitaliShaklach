@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Форма</title>
+</head>
+
+<body>
+  <form action="http://fe.it-academy.by/TestForm.php">
+    <label for="First name">First name:</label>
+    <input type="text" placeholder="Enter your first name">
+    <br>
+    <br>
+    <label for="Last name">Last name:</label>
+    <input type="text" placeholder="Enter your Last name">
+    <br>
+    <br>
+    <label for="Email">Email:</label>
+    <input type="email" placeholder="It should contain @,.">
+    <br>
+    <br>
+    <label for="Mobile">Mobile:</label>
+    <input type="number" min="10" max="10" placeholder="Only 10 digits are allowed">
+    <br>
+    <br>
+    <label for="Gender">Gender:</label>
+    <Label>
+      <input type="radio" name="radio_group" value="value_01"> Male
+
+    </Label>
+    <Label>
+      <input type="radio" name="radio_group" value="value_02" > Female
+
+    </Label>
+    <br>
+    <br>
+    <label for="Date of Birth">Date of Birth:</label>
+    <input type="date" placeholder="dd/mm/yyyy">
+    <br>
+    <br>
+    <label for="Address">Address:</label>
+    <textarea name="Address" cols="30" rows="10">123</textarea>
+    <br>
+    <br>
+    <label for="City">City:</label>
+    <input type="text" name="City">
+    <br>
+    <br>
+    <label for="Pin">Area Pin:</label>
+    <input type="text" name="Pin">
+    <br>
+    <br>
+    <label for="State">State:</label>
+    <input type="text" name="State">
+    <br>
+    <br>
+    <label for="Qualification">Qualification:</label>
+    <select name="Select Qualification:" required >
+      <option value="1">Select Qualification:</option>
+      <option value="2">2-й разраяд</option>
+      <option value="3">1-й разряд</option>
+      <option value="4">КМС</option>
+      <option value="5">Мастер спорта</option>
+    </select>
+    <br><br>
+    <label for="Specialization">Specialization:</label>
+    <label> 
+      <input type="checkbox" name="Computer Science"> Computer Science 
+    </label> <br> 
+    <label>
+      &emsp;&emsp;&nbsp; &emsp;&emsp;&nbsp; &nbsp;&nbsp;&nbsp; <input type="checkbox" name="Information Technology"> Information Technology
+    </label> <br>
+    <label>
+      &emsp;&emsp;&nbsp; &emsp;&emsp;&nbsp; &nbsp;&nbsp;&nbsp; <input type="checkbox" name="Computer Architecture"> Computer Architecture 
+    </label> <br>
+    <label>
+      &emsp;&emsp;&nbsp; &emsp;&emsp;&nbsp; &nbsp;&nbsp;&nbsp; <input type="checkbox" name="Tele Communication"> Tele Communication 
+    </label> <br>
+    <br>
+    <br>
+    <label for="pass">Password:</label>
+    <input type="text" name="Pass">
+
+
+
+    <br>
+    <br>
+    <button style="color: green;"> <input type="submit" ></button> 
+  </form>
+</body>
+
+</html>
