@@ -1,0 +1,19 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+p{
+    color: blue;
+}
+.vip{
+    color: black;
+}
+li{
+    color: green;
+}
+.span1{
+    color: red;
+}
+.span2{
+    text-decoration: underline;
+}
