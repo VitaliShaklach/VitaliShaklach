@@ -1,9 +1,11 @@
 body{
     font-family: 'Roboto', sans-serif;
-    font-weight: 500;
+    font-weight: 900;
 }
+
 p{
     color: blue;
+    font-family: 'Ma Shan Zheng', cursive;
 }
 .vip{
     color: black;
