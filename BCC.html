@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<BASE HREF="https://test3ds.bcc.kz:3443/demobank/VA/">
+
+	<script LANGUAGE="JavaScript">
+		var strBeforeUnload = "Are you sure you want to exit? Your transaction has not been completed. Press Cancel to return to the page.";
+	</script>
+	<SCRIPT LANGUAGE="JavaScript" SRC="/demobank/common/global.js"></SCRIPT>
+	<LINK href="/demobank/common/base_def.css" rel=STYLESHEET type="text/css">
+	<LINK href="/demobank/common/style.css" rel=STYLESHEET type="text/css">
+	<LINK href="/demobank/common/va_style.css" rel=STYLESHEET type="text/css">
+
+
+	<title>VISA SECURE - Password Protection</title>
+	<SCRIPT type="text/javascript" src="/demobank/common/check_iframe_sandboxing.js"></SCRIPT>
+	<SCRIPT type="text/javascript">
+		strBeforeUnload = "Your purchase has not been completed!\
+To complete your purchase, click 'Cancel' and submit your password on the current page.";
+        <!-- page for %method% -->
+        var PAMs = new Array();
+        PAMs[0] = new Array("0","");
+
+        function OnExit() {
+            if (confirm("Are you sure you want to exit? Your transaction has not been completed. To complete your transaction you will need to enter your password. Click Cancel and submit your password.")) {
+                isCheckUnload = false;
+                document.frm.formaction.value = "pa.exit";
+                document.frm.submit();
+                document.getElementById('btnExit').style.display = "none";
+            } else document.frm.PASSWORD.focus();
+
+            return false;
+        }
+
+        var minPwdLength = getInt("5", 5);
+        var maxPwdLength = getInt("32", 32);
+        var isAlphaNumeric = getBool("true", true);
+
+        function OnSubmit(f, doSubmit) {
+            if (f.PASSWORD.value === '') {
+                alert("Please type a Password.");
+                f.PASSWORD.focus();
+                return false;
+            }
+
+            isCheckUnload = false;
+            document.frm.formaction.value = "pa.submit";
+
+            if (document.getElementById("newpw1")) /* Password change */ {
+                var npw1 = document.getElementById("newpw1");
+                var npw2 = document.getElementById("newpw2");
+                if (npw1.value.length < 4) { npw1.focus(); return false; }
+                if (npw1.value !== npw2.value) { npw2.focus(); return false; }
+                if (!ValidatePassword(npw1.value, minPwdLength, maxPwdLength, isAlphaNumeric)) {
+                    alert("Please type a valid password.");
+                    npw1.focus(); return false;
+                }
+
+                var nhint = document.getElementById("newhint");
+                if (nhint.value.length < 3) { nhint.focus(); return false; }
+                if (nhint.value.toUpperCase().indexOf(npw1.value.toUpperCase()) >= 0) {
+                    alert("Password hint cannot contain password itself.");
+                    nhint.focus(); return false;
+                }
+            }
+
+            document.getElementById("btnSubmit").disabled = true;
+            if (doSubmit) document.frm.submit();
+            return true;
+        }
+
+        function ShowPage(name) {
+            isCheckUnload = false;
+            document.frm.formaction.value = name;
+            document.frm.submit();
+        }
+
+        function setHTML(el, html) {
+            if (el) {
+                var oldEl = (typeof el === "string" ? document.getElementById(el) : el);
+                var newEl = document.createElement(oldEl.nodeName);
+                // Preserve any properties we care about (id and class in this example)
+                newEl.id = oldEl.id;
+                newEl.className = oldEl.className;
+                //set the new HTML and insert back into the DOM
+                newEl.innerHTML = html;
+                if (oldEl.parentNode) oldEl.parentNode.replaceChild(newEl, oldEl);
+                else oldEl.innerHTML = html;
+                return newEl;
+            }
+
+            return el;
+        }
+
+        function OnLoad() {
+            var loginTries = 0;
+            var desc = document.getElementById("desc");
+            if (desc) {
+                var addInfo = "%addInfo%";
+                desc.className = "error";
+                if( "" === "pa.service" ) {
+                    desc.style.display = "block";
+                    desc.className = "desc";
+                    desc.innerHTML = "<p>Another SMS with one-time password has been sent to your phone number. Please wait for SMS arrival and sumbit one-time password again.</p>";
+                } else if (addInfo == "pwdIsEmpty") { desc.innerHTML = "<p>Please type a Password.</p>";
+                } else if (loginTries > 0) {
+                    if ("OTP_SMS" === "OTP_SMS") {
+                        desc.innerHTML = "<p>You submitted a wrong password.</p>";
+                    } else {
+                        if ("3".length != 8) desc.innerHTML = "<p>You submitted a wrong password. Please try again.<br>Tries left: 3</p>";
+                        else                         desc.innerHTML = "<p>You submitted a wrong password. Please try again.</p>";
+                    }
+                } else {
+                    if ("OTP_SMS" === "OTP_SMS") desc2 = "One-time password has been sent to your registered telephone number. Please wait for one-time password SMS arrival and enter it to the Password field.";
+                    else desc2 = "Please enter your VISA SECURE password in the field below to confirm your identity for this purchase. This information is not shared with the merchant.";
+                    desc.className = "desc";
+                    desc.innerHTML = "<p>" + desc2 + "</p>";
+                    if ("OTP_SMS" === "BASIC" && "%PW_CHANGE%" == "Y") {
+                        desc2 = "Please enter your old password in the field below to confirm your identity for this purchase and change new one password. This information is not shared with the merchant.";
+                        desc.innerHTML = "<p>" + desc2 + "</p>";
+                        changePassword();
+                    }
+                }
+            }
+
+            document.frm.PASSWORD.focus();
+        }
+
+        function changePam() {
+            var user = document.frm.userkey[document.frm.userkey.selectedIndex].value;
+            var pam = document.getElementById("pam");
+            for (i = 0; i < PAMs.length; i++) if (PAMs[i][0] === user) pam.innerHTML = PAMs[i][1];
+        }
+
+        function setCells(row, cell1, cell2) {
+            if (row) {
+                if (row.insertCell) {
+                    var c1 = row.insertCell(0);
+                    c1.innerHTML = cell1;
+                    var c2 = row.insertCell(1);
+                    c2.innerHTML = cell2;
+                } else row.innerHTML = "<div class='label'>" + cell1 + "</div><div class='value'>" + cell2 + "</div>";
+            }
+        }
+
+        function delRow(tr) {
+            if (tr) {
+                if (tr.deleteCell && tr.cells.length > 0) {
+                    tr.deleteCell(1); tr.deleteCell(0);
+                } else tr.innerHTML = "";
+            }
+        }
+
+        function changePassword() {
+            var chpw1 = document.getElementById("chpw1");
+            var chpw2 = document.getElementById("chpw2");
+            var chint = document.getElementById("chint");
+            var cdesc = document.getElementById("chdesc");
+            var pa_mt = document.getElementById("pa_merchant");
+            var pa_ds = document.getElementById("pa_desc");
+            var pa_am = document.getElementById("pa_amount");
+            var pa_dt = document.getElementById("pa_date");
+            var pa_pn = document.getElementById("pa_pan");
+            var pa_pr = document.getElementById("pamrow");
+            var pa_tr = document.getElementById("pa_transactionId");
+
+            if (document.getElementById("newpw1")) {
+                delRow(chpw1); delRow(chpw2); delRow(chint);
+                document.getElementById("chpwList").style.display = "none";
+                document.getElementById("descList").style.display = "block";
+                setCells(pa_mt, 'Merchant:', "MERCHANT A");
+                setCells(pa_ds, 'Description:', "");
+                setCells(pa_am, 'Amount:', '874.00 KZT');
+                setCells(pa_dt, 'Date:', '17/10/2023');
+                setCells(pa_pn, 'Card number:', ' **** **** **** 4361');
+                setCells(pa_pr, 'Personal Message:', '');
+                setCells(pa_tr, 'Unique transaction ID:', '1f05c50a-7e42-4d10-b5b7-7a7f0e9c25df');
+                cdesc.innerHTML = '';
+            } else {
+                delRow(pa_mt); delRow(pa_ds); delRow(pa_am); delRow(pa_dt);
+                delRow(pa_pn); delRow(pa_pr); delRow(pa_tr);
+                document.getElementById("chpwList").style.display = "block";
+                document.getElementById("descList").style.display = "none";
+                setCells(chpw1, 'New Password:', "<input class='small-input' id='newpw1' type='password' name='NEWPASSWORD'></input>");
+                setCells(chpw2, 'Re-type it:', "<input class='small-input' id='newpw2' type='password' name='CONFIRM'></input>");
+                setCells(chint, 'Your password hint:', "<input class='small-input' id='newhint' type='text' name='NEWHINT'></input>");
+                cdesc.innerHTML = '<p>To create your VISA SECURE password, enter 5 to 32 characters, without spaces. There must be at least one letter and one number.</p>';
+            }
+
+            return false;
+        }
+
+        function removeElement(id) {
+            if (typeof id === "object") return id.parentNode.removeChild(id);
+            else return (elem = document.getElementById(id)).parentNode.removeChild(elem);
+        }
+
+        function resendSMS() {
+            isCheckUnload = false;
+            removeElement(document.getElementById("psw_id"));
+            document.frm.formaction.value = "pa.service";
+            document.frm.submit();
+        }
+
+        function startTimer() {
+            var duration = 59,
+            display = document.querySelector('#time');
+
+            document.getElementById('wait_time').style.display = 'inline-block';
+            document.getElementById('resend_sms').style.display = 'none';
+            var wait = document.getElementById('wait_time').style.display = 'block';
+            var timer = duration, seconds;
+
+            if(wait) {
+                display.textContent = seconds;
+            }
+            var setintTime = setInterval(function () {
+                seconds = parseInt(timer % 60, 10);
+                display.textContent = seconds;
+                if (--timer < 0) {
+                    timer = duration;
+                }
+                if(timer == 59){
+                    document.getElementById('wait_time').style.display = 'none';
+                    document.getElementById('resend_sms').style.display = 'block';
+                    clearInterval(setintTime);
+                }
+            }, 1000);
+        }
+
+        function backToAuthList() {
+            removeElement(document.getElementById("psw_id"));
+            document.getElementById("btnBack").disabled = true;
+            document.frm.formaction.value = "pa.back";
+            document.frm.submit();
+        }
+
+        function goToADS() {
+            removeElement(document.getElementById("psw_id"));
+            document.frm.formaction.value = "pa.gotoADS";
+            document.frm.submit();
+        }
+
+        function changePhone() {
+            if (document.getElementById("newphone")) delRow(chphone);
+            else setCells(chphone, 'New phone:', "<input id='newphone' type='text' name='NEWPHONE'></input>");
+            return false;
+        }
+
+	</SCRIPT>
+
+</head>
+
+<BODY onLoad="OnLoad(); startTimer();" onbeforeunload="OnBeforeUnload();">
+	<div class="modal-page">
+		<div class="header">
+
+			<div>
+				<img src="/demobank/images/MyBank.svg">
+</div>
+
+				<div>
+					<img src="/demobank/images/verified_logo.svg" width="50" height="50">
+    </div>
+					<div class="language">
+
+					</div>
+
+
+				</div>
+
+				<form method="POST" ONSUBMIT="return OnSubmit(this, false);" name="frm" accept-charset="utf-8"
+					action="https://test3ds.bcc.kz:3443/way4acs/challengedispatcher;jsessionid=6816C147C78C461F318F5225EA1D0F70">
+					<h1>Enter your Password</h1>
+
+
+
+					<div class="list" id="descList" style="display: block;">
+						<div class="list-item" id="pa_merchant">
+							<div class="label">Merchant:</div>
+							<div class="value">MERCHANT A</div>
+						</div>
+						<!--
+    <div class="list-item" id="pa_desc">
+        <div class="label">Description:</div>
+        <div class="value"></div>
+    </div>
+	-->
+
+						<div class="list-item" id="pa_amount">
+							<div class="label">Amount:</div>
+							<div class="value"><b>874.00 KZT</b></div>
+						</div>
+
+						<div class="list-item" id="pa_date">
+							<div class="label">Date:</div>
+							<div class="value">17/10/2023</div>
+						</div>
+						<div class="list-item" id="pa_pan">
+							<div class="label">Card number:</div>
+							<div class="value"> **** **** **** 4361</div>
+						</div>
+						<!--
+    
+        <div class="list-item" id="pamrow">
+            <div class="label">Personal Message:</div>
+            <div class="value"></div>
+        </div>
+    
+        <!-- div class="list-item" id="pa_transactionId">
+            <div class="label">Unique transaction ID:</div>
+            <div class="value">1f05c50a-7e42-4d10-b5b7-7a7f0e9c25df</div>
+        </div - - >
+    
+    -->
+					</div>
+
+					<div id="desc"></div>
+
+					<div class="list">
+
+
+						<!--  Change user phone -->
+						<!--
+                 
+                -->
+
+
+
+
+
+						<p class="desc" id="desc-text">SMS One-time password:</p>
+						<input class="big-input" id="psw_id" type="password" inputmode="numeric" placeholder="SMS One-time password" name="PASSWORD" size="20" maxlength="4" autocomplete="one-time-code" autofocus>
+
+
+						<p class="desc">
+
+							<!--a class="left small" href="javascript:void(0);" onclick="javascript:goToADS();return false;">Change it</a-->
+
+
+
+							<input type="hidden" name="PSW_RENEW" value="Y">
+							<input type="hidden" name="TRIES" value="Y">
+							<div id="wait_time">
+								<br><span class="descr_timer">The code has been sent to your phone number 05********00<br>The code can be resent in</span>
+								<div class="timer_wait"><span id="time">59</span> seconds</div>
+							</div>
+							<div id="resend_sms" class="resend_sms_titile" onclick="resendSMS()">
+								<svg class="svg_reload" width="25" height="24" viewBox="0 0 25 24" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd"
+										d="M11.1119 0.461548C16.7024 0.461548 21.3032 4.69477 22.0933 10.3038H22.0942L22.2157 10.9953L23.2214 9.7844C23.585 9.34515 24.2244 9.29634 24.6492 9.67482C25.0722 10.0542 25.1192 10.7172 24.7547 11.1565L21.6641 14.8768L17.7018 12.5074C17.2176 12.2183 17.0509 11.5755 17.3302 11.0727C17.6087 10.5717 18.225 10.3986 18.711 10.6869L19.8772 11.3839L19.8284 11.1086L19.8089 11.1095C19.3735 6.53835 15.6036 2.92579 11.1119 2.92579C6.29287 2.92579 2.37313 6.99694 2.37313 12C2.37313 17.004 6.29287 21.0752 11.1119 21.0752C13.1409 21.0752 15.044 20.3753 16.6137 19.0511C17.1227 18.622 17.8712 18.7048 18.2827 19.2297C18.695 19.7565 18.617 20.5337 18.1097 20.9628C16.1392 22.6231 13.6535 23.5385 11.1119 23.5385C4.98481 23.5385 0 18.3614 0 12C0 5.63774 4.98481 0.461548 11.1119 0.461548Z"
+										fill="#00A755" />
+								</svg>
+								<span class="title_reload">Resend a code</span>
+							</div>
+
+						</p>
+
+
+
+
+
+
+						<div class="footer">
+							<div class="row">
+								<!-- div class="left">
+                            <input class="button" type="button" id="btnBack" name="btBack" onclick="javascript:backToAuthList();return false;" VALUE="Back">
+                        </div -->
+								<div>
+									<input class="big-button" TYPE="button" id="btnSubmit" name="btSubmit" value="Submit" onclick="return OnSubmit(document.frm, true);">
+                        </div>
+								</div>
+								<br/>
+                </div>
+							</div>
+
+							<input type="hidden" name="formaction" value="pa.submit">
+
+
+							<input type="hidden" name="threeDSSessionData" value="MWYwNWM1MGEtN2U0Mi00ZDEwLWI1YjctN2E3ZjBlOWMyNWRm">
+
+							<input type="hidden" name="jsessionid" value="6816C147C78C461F318F5225EA1D0F70"/></form>
+						</div>
+						<SCRIPT type="text/javascript">
+							var pass = document.querySelector('.big-input');
+        pass.addEventListener('input', changeBackground);
+
+        function changeBackground() {
+            if (pass.value !== '') {
+                document.querySelector('.big-button').style.background = '#00A755';
+            } else {
+                document.querySelector('.big-button').style.background = '#79868E';
+            }
+        }
+						</SCRIPT>
+
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style>
+		body {
+			position: relative;
+		}
+
+		div {
+			margin: auto;
+			stroke: black;
+			overflow: visible;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			position: absolute;
+			z-index: 1;
+		}
+
+		span {
+			font-family: Arial;
+			font-size: 1.5em;
+		}
+
+		svg {
+			animation: SPIN-SVG 1.4s linear infinite;
+			width: 4em;
+			height: 4em;
+			margin: auto;
+			transform: translateY(-50%);
+		}
+
+		svg circle {
+			transform-origin: center;
+			animation: SPIN-CIRCLE 1.4s ease-in-out infinite;
+			stroke-dasharray: 187;
+			stroke-dashoffset: 0;
+			stroke-linecap: square;
+			stroke-width: 6;
+		}
+
+		@keyframes SPIN-SVG {
+			0% {
+				transform: rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(270deg);
+			}
+		}
+
+		@keyframes SPIN-CIRCLE {
+			0% {
+				stroke-dashoffset: 187;
+			}
+
+			50% {
+				stroke-dashoffset: 46.75;
+				transform: rotate(135deg);
+			}
+
+			100% {
+				stroke-dashoffset: 187;
+				transform: rotate(450deg);
+			}
+		}
+	</style>
+</head>
+<script>
+	var creatable = {"number":"67775e-cf18-41a5-9a4b-db8802cea120","amount":71.27,"currency":"EUR","capture":"auto","card":{"iin":"411111","last4":"1111","scheme":"visa","token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjYXJkIiwiaWF0IjoxNjk3NDQ1ODIyLCJhdWQiOiJwcm9kdWN0aW9uIiwiZW5jIjoiNDIuS1l3Ynk5N191MDVtN3RPTmlab1RTQS43MGoydkpqM2FBN0xRZ0EtcEtXRC1LN19wc0RNc0FrM1N4Q3h6YUx2cmc1RWZvR1oiLCJ4cHIiOlsxMiwyM119.lLXr2t1Aojj4Vl4e-zu8wBNyEtewRvo7s67h4vHKVKnPy0Ffki9rgIvl16uP3LdHvZyP4MHNgE0RgzYa5p4evex41bo1pwy0aemYyDFpP9ihCkRJ79DL4M1ynMMh_7KUSG1jQYdyU9BFY9xBDxlnU1yLRZuQ1oD6tXyu784c_4GoNw4JQ5iYPGqgd6s7jFs0zjsKtHuBlNN4qhd8REmNFUWht1lCU5JgTz64YOTe2jVx6T51jqidET_yJPh5tXteXkXAtOlmFw5lPJdLuGTllGcRlu78oBhtzu-m-3uSSj3Tc68EYR-rRdjkhnIU63NkbwmrkG_sbJabqbaXCOQLuA","expires":[12,23],"csc":"present"},"target":"https://webhook.site/912cd804-c2c0-4138-9a5d-9f81842773fe","category":"person-to-person","sender":{"name":{"first":"John","last":"Doe"},"address":{"street":"1-st street","zipCode":"29473893","city":"Berlin","countryCode":"DE"},"accountNumber":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjYXJkIiwiaWF0IjoxNjk3NDQ1ODIyLCJhdWQiOiJwcm9kdWN0aW9uIiwiZW5jIjoiMjAyMy5iYUo3Q2QwU0N6Q1ROZTNhc0pNa0hBLnBxZWNhVmNiYnBLS0xSWDk5am5UTng3QUVfQ1IzUFRMOHU0dHhNdko5bTgiLCJ4cHIiOlsxLDk5XX0.Cf1WGufn1XUZA5v9nXAmywQnMKQlctnPzYN8_xp6vAY8M0idFjn4ypguARtkDbpX34WsaB8s8LuanNKjZEmj7X84PTs2e_KuOlh1avX09kPlJu2_FFX4alvu9QIbN6kP55Ezicxv1skzxgUYIUErmw1r0dZwMY-QuDMCX-JrV63Url6V1yR7b9p1W_gYZE8Of7GTFvoGeh2J_nPCPdUrRxyjjcJTjl8ByLkKGqava_M4HjsKVHJ_wR1PjdwwA75ITc_FAfqkq_BLqInIpZpJ9oA_A-D2Y-kFm5vfxqnaBqcr5D1cvnf_RalBipNztJWkBaOZvwzCAmqMZA2Phtc8vg","accountType":"card"},"receiver":{"name":{"first":"John","last":"Rembo"},"address":{"street":"2-st street","zipCode":"39473893","city":"Berlin","countryCode":"DE"},"accountNumber":"LT121000011101001000","accountType":"iban"},"id":"lOghe7kGzaHXHhB8"}
+		var parentURL = undefined
+		if (creatable.browser)
+			creatable.browser.parent = window.location.href
+		else 
+			creatable.browser = { parent: window.location.href }
+		var target = "https://webhook.site/912cd804-c2c0-4138-9a5d-9f81842773fe"
+		var key = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL21lcmNoYW50LmludGVyZ2lyby5jb20vdjEiLCJpYXQiOjE2MTQ1ODczODEsIm5hbWUiOiJQYXljcm9zcyBUZXN0IiwidHlwZSI6InRlc3QiLCJ1cmwiOiJodHRwczovL3d3dy5leGFtcGxlLmNvbSIsImNhcmQiOnsiYWNxdWlyZXIiOiJibzdta054ZlA5eWlORlZudzRKWWwzajdCaXVIcXNmenNLaElDdTR0QUhGS3hiaVFxRkVlYnZUdGNGcTVTblFIeUdhNTBVU2N6clp3TVFwQ3MwYmxraUp3Y205MGIyTnZiQ0k2SW1sdWRHVnlaMmx5YnlJc0luVnliQ0k2SW1oMGRIQnpPaTh2WVhCcExuQmhlV1oxYm1NdVkyOXRJbjAiLCJjb3VudHJ5IjoiU0UiLCJkZXNjcmlwdG9yIjoicGF5Y3Jvc3N0ZXN0IiwiZW12M2QiOiJPdW5jdFRWTzkxOFZEUE41RUU4MXJ1empwVzZQdTUxQXdIcDdZcjRQd3kxSng1Y1ZQX0NBQWlXYV85NGJQaXRLYWloUFk4bFNvR3VvQVdxdVhpbXB2Q0lzSW5WeWJDSTZJbWgwZEhCek9pOHZjMlZ5ZG1salpTNXpZVzVrWW05NExqTmtjMlZqZFhKbExtbHZJbjBzZXlKclpYa2lPaUp1YnkxclpYa2lMQ0p3Y205MGIyTnZiQ0k2SW1Ob00yUXhJaXdpZFhKc0lqb2lhSFIwY0hNNkx5OWhjR2t1WTJGeVpHWjFibU11WTI5dEwyTm9NMlF4YzJsdEluMWQiLCJtY2MiOiIxMjM0IiwibWlkIjoiMTIzNCIsInVybCI6Imh0dHBzOi8vYXBpLnBheWZ1bmMuY29tIn0sInN1YiI6InNkNkhfbzloIiwiYXVkIjoicHVibGljIiwiZmVhdHVyZXMiOiIiLCJhZ2VudCI6IkludGVyZ2lybyIsImlkIjoic2Q2SF9vOWgifQ.bUuHW_RJGgi0qaMmO1BBl5xzEnzzyOQOxhZ3NmMXJcw" 
+		var baseUrl = "https://merchant.intergiro.com/v1"
+		var idempotency
+		var done = false
+		authorize()
+		
+		async function authorize() {
+			if (done == false) {
+				var [status, body] = await post(baseUrl+ "/authorization?method=GET", creatable)
+				var iframe = document.getElementById("verification")
+				done = done || status == 201
+				if (status == 400 && body && body.error == "verification required") {
+					creatable.id = body.id || creatable.id
+					iframe.src = body.content.details.url
+					document.getElementById("spinner").style.display = "none"
+				} 
+				else if (target)
+					submit(body)
+				else if (parentURL)
+					postMessageExternal(parentURL, body)
+			}
+	}
+	
+		
+	async function post(url, body) {
+		var response
+		response = await fetch(url, {
+		method: "POST",
+			headers: new Headers(
+				{
+					"Authorization": key,
+					"Content-Type": "application/json",
+					"Accept": "application/jwt",
+					"Idempotency-Key": idempotency
+				}),
+			body: JSON.stringify(body),
+		});
+		idempotency = response.headers.get("idempotency-key")
+		var contentType = response.headers.get("Content-Type")
+		return [
+			response.status,
+			contentType && contentType.startsWith("application/json")
+				? await response.json()
+				: await response.text()
+		];
+	}
+		
+	async function postMessageExternal(parent, body) {
+		window.parent.postMessage(
+			{ destination: "parent", content: { name: "authorization", value: typeof body == "object" ? JSON.stringify(body) : body } },
+			parent
+		)
+	}
+		
+	function submit(body) {
+		var input = document.getElementById("authorization")
+		input.value = typeof body == "string" ? body : JSON.stringify(body)
+		var form = document.getElementById("returnForm")
+		form.submit()
+	}
+		
+		window.addEventListener("message", async e => {
+			if (e.data.destination == "parent" && e.data.content.name == "card") {
+				e.stopImmediatePropagation()
+				creatable.card = e.data.content.value
+				await authorize()
+			}
+		})
+		window.addEventListener('load', (event) => {
+			getTarget()
+		});
+		function getTarget() {
+			var form = document.getElementById("returnForm")
+			form.action = target
+		}
+</script>
+
+<body style="height:90vh; width:90vw; margin:auto;">
+	<div id="spinner">
+		<svg class="spinner" width="44px" height="44px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+			<circle class="path" fill="none" cx="33" cy="33" r="30"></circle>
+		</svg>
+	</div>
+	<iframe name="verification" id="verification"
+		style="position:relative; z-index:2; width:100%; height:100%; border:none; box-sizing: border-box;"></iframe>
+	<form method="post" id="returnForm" action="https://webhook.site/912cd804-c2c0-4138-9a5d-9f81842773fe"
+		target="_self">
+		<input type="hidden" id="authorization" name="authorization"></input>
+	</form>
+</body>
+
+</html>
