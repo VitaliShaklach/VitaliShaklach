@@ -1,0 +1,5 @@
+POST https://test3ds.bcc.kz:3443/way4acs/brw/challenge?id=d5f36e0a-298d-48ac-9c23-96ae1bdfcba5 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 398
+
+creq=eyJtZXNzYWdlVHlwZSI6IkNSZXEiLCJtZXNzYWdlVmVyc2lvbiI6IjIuMS4wIiwidGhyZWVEU1NlcnZlclRyYW5zSUQiOiJkNWYzNmUwYS0yOThkLTQ4YWMtOWMyMy05NmFlMWJkZmNiYTUiLCJhY3NUcmFuc0lEIjoiMTY2ODQ0NzEtYzlhMi00YzE3LWIwN2ItMmQzZTJlMGJjNTVmIiwiY2hhbGxlbmdlV2luZG93U2l6ZSI6IjA1In0&TermUrl=https%3A%2F%2Fwebhook.site%2F09a0d127-54f0-42ce-8092-5f0ba79ca1c7&threeDSSessionData=ZDVmMzZlMGEtMjk4ZC00OGFjLTljMjMtOTZhZTFiZGZjYmE1

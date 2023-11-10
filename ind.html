@@ -1,0 +1,120 @@
+
+    <!DOCTYPE html>
+<html lang="en">
+ 
+    <HEAD>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css" rel="stylesheet" />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- <meta charset="utf-8" /> -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Payment Service Provider | Merchant Accounts</title>
+        <style>
+            .has-success .form-control,
+            .has-success .control-label,
+            .has-success .radio,
+            .has-success .checkbox,
+            .has-success .radio-inline,
+            .has-success .checkbox-inline {
+                color: #1cb78c !important;
+            }
+     
+            .has-success .help-block {
+                color: #1cb78c !important;
+                border-color: #1cb78c !important;
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #1cb78c;
+            }
+     
+            .has-error .form-control,
+            .has-error .help-block,
+            .has-error .control-label,
+            .has-error .radio,
+            .has-error .checkbox,
+            .has-error .radio-inline,
+            .has-error .checkbox-inline {
+                color: #f0334d;
+                border-color: #f0334d;
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #f0334d;
+            }
+     
+            table {
+                color: #333;
+                /* Lighten up font color */
+                font-family: "Raleway", Helvetica, Arial, sans-serif;
+                font-weight: bold;
+                width: 640px;
+                border-collapse: collapse;
+                border-spacing: 0;
+            }
+     
+            td,
+            th {
+                border: 1px solid #CCC;
+                height: 30px;
+            }
+     
+            /* Make cells a bit taller */
+            th {
+                background: #F3F3F3;
+                /* Light grey background */
+                font-weight: bold;
+                /* Make sure theyre bold */
+                font-color: #1cb78c !important;
+            }
+     
+            td {
+                background: #FAFAFA;
+                /* Lighter grey background */
+                text-align: left;
+                padding: 2px;
+                /* Center our text */
+            }
+     
+            label {
+                font-weight: normal;
+                display: block;
+            }
+        </style>
+    </HEAD>
+     
+    <BODY>
+        <form class="form-horizontal" id="india_onepayment_form" action="https://pa-preprod.1pay.in/payment/payprocessorV2"
+            method="POST">
+     
+            <input type="hidden" class="form-control" name="merchantId" id="merchantId" value="M0000363" />
+            <input type="hidden" class="form-control" name="reqData" id="reqData" value="Xony/EvLpehE5gvyxCuE2fIAx9gRFqRAwNZWYYlalVlQPSF0Z+bI3i4r7+owCpOuPQ0vZfYKcGi0kUe/c/GScpWRolR8LVoRlsrwL/JWk27oqXJ8bAjJ9cdg1rmIVDDeYw74DWehyeB1OX6ZPeudD9v6LXB2kp6jxFNFXXRs9Ubvjej/leFIjQhIH44+XKkiIf7dlc1D3WNAseo7PNcJisKIw0Le2+bLiJ8vKoaKehs3rfW91aZmLGyqnoyzch3KtZuY+6dFt9mlVGJyM3zfaQ50A2wMQLAAVlbI39r0J+jpl+gS6BBId86rOFV3aIH55lyOWbqrQY4FWdZXrJIieC6lLw4GAtfz0UMY2dkt3vXrUPjOvhjvMqudMODEAVAUU3Kb6P2eqet/tou0WFuZlVouN2sAwD+8oJjtMvnoKp8wSqXyha0x+4xHZNxqR9FvLbTZU+l+7YUlVlrI5D8hR9vh+925AO+fGfBRswxgRvNWqtxdHglAZ91S4V1j7c2EIaKF52DoyI6berR5ha3T5PvAuMAldRvy7tc7Ud2z7BM3rZf4se28yZO0K/uTAlIR5eZlsY6TZvnujCyx5GlJYH2lX3MwUaUkyx+iW1ON4lcC9glYx/qSwD5/pVx0/SgvEEENN7ORqwXVrWky5XOnfA==" />
+     
+            <div class="container cs-border-light-blue">
+     
+                <!-- first line -->
+                <div class="row pad-top"></div>
+                <!-- end first line -->
+     
+                <div class="equalheight row" style="padding-top: 10px;">
+                    <div id="cs-main-body" class="cs-text-size-default pad-bottom">
+                        <div class="col-sm-9  equalheight-col pad-top">
+                            <div style="padding-bottom: 50px;">
+                                <h1>Initiating your payment process</h1>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <legend>Your payment is being processed, Please wait for a moment.</legend>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </form>
+        <script type="text/javascript">
+            $(document).ready(function(e) {
+      $("#india_onepayment_form").submit();
+    });
+        </script>
+    </BODY>
+     
+    </HTML>
