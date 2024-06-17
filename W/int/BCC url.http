@@ -1,5 +1,6 @@
-POST https://test3ds.bcc.kz:3443/way4acs/brw/challenge?id=d5f36e0a-298d-48ac-9c23-96ae1bdfcba5 HTTP/1.1
+POST /api/v1/client HTTP/1.1
+Host: ipaytest.arca.am:8445
 Content-Type: application/x-www-form-urlencoded
-Content-Length: 398
+Content-Length: 641
 
-creq=eyJtZXNzYWdlVHlwZSI6IkNSZXEiLCJtZXNzYWdlVmVyc2lvbiI6IjIuMS4wIiwidGhyZWVEU1NlcnZlclRyYW5zSUQiOiJkNWYzNmUwYS0yOThkLTQ4YWMtOWMyMy05NmFlMWJkZmNiYTUiLCJhY3NUcmFuc0lEIjoiMTY2ODQ0NzEtYzlhMi00YzE3LWIwN2ItMmQzZTJlMGJjNTVmIiwiY2hhbGxlbmdlV2luZG93U2l6ZSI6IjA1In0&TermUrl=https%3A%2F%2Fwebhook.site%2F09a0d127-54f0-42ce-8092-5f0ba79ca1c7&threeDSSessionData=ZDVmMzZlMGEtMjk4ZC00OGFjLTljMjMtOTZhZTFiZGZjYmE1
+threeDSServerTransID=threeDSServerTransID%3D132dfdd3-f147-4a94-915b-36ce67a7a8ce&clientInfo=%7B%22userAgent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F69.0.3497.100%20Safari%2F537.36%22%2C%22colorDepth%22%3A%20%2224%22%2C%20%22screenHeight%22%3A%20%221920%22%2C%20%22screenWidth%22%3A%20%221080%22%2C%22javaEnabled%22%3A%20false%2C%22browserLanguage%22%3A%20%22en-US%22%2C%22browserTimeZoneOffset%22%3A%20%22120%22%2C%20%20%20%20%22browserAcceptHeader%22%3A%20%22*%2F*%22%2C%22browserIpAddress%22%3A%20%2210.1.2.14%22%2C%22javascriptEnabled%22%3A%20true%7D

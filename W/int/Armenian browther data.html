@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script defer>
+    const formData = new FormData();
+    formData.append(
+      "threeDSServerTransID",
+      "095adc5d-100c-4f3c-b0c7-e8750736c6a4"
+    );
+    formData.append(
+      "clientInfo",
+      JSON.stringify({
+        userAgent:
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36",
+        colorDepth: "24",
+        screenHeight: "1920",
+        screenWidth: "1080",
+        javaEnabled: false,
+        browserLanguage: "en-US",
+        browserTimeZoneOffset: "120",
+        browserAcceptHeader: "*/*",
+        browserIpAddress: "10.1.2.14",
+        javascriptEnabled: true,
+      })
+    );
+
+    axios
+      .post(`https://ipaytest.arca.am:8445/api/v1/client`, formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        // Handle response here
+      })
+      .catch((error) => {
+        // Handle error here
+      });
+  </script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ClientJS/0.2.1/client.min.js" ></script>
+
+  <script >
+    document.addEventListener("DOMContentLoaded", () => {
+    console.log("1")
+      function encodeForm(data) {
+        var urlEncodedDataPairs = [];
+        for (var name in data) {
+          urlEncodedDataPairs.push(
+            encodeURIComponent(name) + "=" + encodeURIComponent(data[name])
+          );
+        }
+
+        return urlEncodedDataPairs.join("&").replace(/%20/g, "+");
+      }
+
+      var threeDSServerTransID = "687f0a4f-3b26-4ab4-9ce5-92d44925fe31";
+      var client = new ClientJS();
+      var screen = client.getCurrentResolution().split("x");
+      var info = {
+        userAgent: client.getUserAgent(),
+        //fingerprint: client.getFingerprint(),
+        os: client.getOS(),
+        osversion: client.getOSVersion(),
+        device: client.getDevice(),
+        deviceType: client.getDeviceType(),
+        mobile: client.isMobile(),
+        screenPrint: client.getScreenPrint(),
+        colorDepth: client.getColorDepth(),
+        screenHeight: screen && screen[1] ? screen[1] : 0,
+        screenWidth: screen && screen[0] ? screen[0] : 0,
+        plugins: client.getPlugins(),
+        javaEnabled: client.isJava(),
+        browserLanguage: client.getLanguage(),
+        browserTimeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        browserTimeZoneOffset: new Date().getTimezoneOffset(),
+        javascriptEnabled: true, //always true here, because if JS were not enabled this would not have worked
+      };
+
+      var dataForm = encodeForm({
+        threeDSServerTransID: threeDSServerTransID,
+        clientInfo: JSON.stringify(info, null, 2),
+      });
+
+      var request = new XMLHttpRequest();
+      request.open("POST", "https://ipaytest.arca.am:8445/api/v1/client");
+      request.setRequestHeader(
+        "Content-Type",
+        "application/x-www-form-urlencoded"
+      );
+      request.send(dataForm);
+    });
+  </script>
+  <body></body>
+</html>

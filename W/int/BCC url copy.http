@@ -1,0 +1,4 @@
+GET  /?paymentId=04a653b0-e787-4c8f-8c89-707b20557432 HTTP/1.1
+Host: paywith.staging.contiant.com
+
+

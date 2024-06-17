@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <form action="https://ipaytest.arca.am:8445/api/v1/client" method="POST">
+      <input
+        type="hidden"
+        name="threeDSServerTransID"
+        value="0c488031-bdb9-4cfa-86c8-62da497c9027"
+      />
+      <input
+        type="hidden"
+        name="clientInfo"
+        value='{"userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.361","colorDepth":24,"screenHeight":1920,"screenWidth":1080,"javaEnabled":false,"browserLanguage":"en-US","browserTimeZoneOffset":120,"browserAcceptHeader":"*/*","browserIpAddress":"10.1.2.14","javascriptEnabled":true}'
+      />
+      <input type="submit" value="submit" />
+    </form>
+  </body>
+</html>

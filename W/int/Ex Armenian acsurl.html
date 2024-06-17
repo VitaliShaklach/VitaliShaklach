@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head runat="server">
+    <title>Redirect</title>
+  </head>
+  <body OnLoad="OnLoadEvent();">
+        <form id="threeDS2" name ="threeDS2" method="post" action="https://acs3test.arca.am:8451/acs/api/3ds2/creqbrw/3d220702-d5d1-4b2f-bc1c-2e93fc00161f">
+            <input type="hidden" id="CReq" name="creq" value="eyJ0aHJlZURTU2VydmVyVHJhbnNJRCI6IjNkMjIwNzAyLWQ1ZDEtNGIyZi1iYzFjLTJlOTNmYzAwMTYxZiIsIm1lc3NhZ2VUeXBlIjoiQ1JlcSIsIm1lc3NhZ2VWZXJzaW9uIjoiMi4xLjAiLCJhY3NUcmFuc0lEIjoiYzY2MjExYWYtYmJjNy00ZWU2LWJhOGUtY2ZlOTZjNzcxNzYwIiwiY2hhbGxlbmdlV2luZG93U2l6ZSI6IjA1In0"/>
+        </form>
+    <script>
+      function OnLoadEvent() {
+        document.threeDS2.submit();
+      }
+    </script>
+  </body>
+</html>
