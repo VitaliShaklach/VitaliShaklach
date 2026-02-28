@@ -7,7 +7,7 @@ const privateKey = fs.readFileSync('PrivateKeypr.pem', 'utf8');
 // Данные, которые будут включены в токен
 const payload = {
     "ORDER": "7011834119122100063",
-    "DESC": "some test",
+    "DESC": "some yyyest",
     "AMOUNT": "0.10",
     "CURRENCY": "BYN",
     "MERCHANT": "E0700001",
